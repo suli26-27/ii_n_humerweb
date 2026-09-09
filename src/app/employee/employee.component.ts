@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { EmpApiService } from '../shared/emp-api.service';
+import Employee from '../interfaces/employee';
 
 @Component({
   imports: [],
@@ -6,4 +8,16 @@ import { Component } from '@angular/core';
   styleUrl: './employee.component.css',
   templateUrl: './employee.component.html',
 })
-export class EmployeeComponent {}
+export class EmployeeComponent {
+
+  empService = inject(EmpApiService)
+  
+  empList!: Employee[] 
+
+  ngOnInit() {
+    let data = this.empService.getEmployees()
+    console.log(data)
+    this.empList = this.empService.getEmployees()
+
+  }
+}
